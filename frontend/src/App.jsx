@@ -5,8 +5,14 @@ import axios from "axios";
 const App = () => {
   useEffect(() => {
     const getAllProducts = async () => {
-      const { data } = await axios.get("http://localhost:5000/api/products");
-      console.log(data);
+      try {
+        const { data } = await axios.get(
+          "https://tesssst-neon.vercel.app/api/products"
+        );
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
     };
     getAllProducts();
   }, []);
