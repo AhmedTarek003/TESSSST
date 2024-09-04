@@ -10,6 +10,10 @@ app.use(express.json());
 
 app.use("/", require("./routes/productRoute"));
 
+app.use("*", (req, res, next) => {
+  next(new Error("this route not found"));
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`app is running at ${PORT}`);
