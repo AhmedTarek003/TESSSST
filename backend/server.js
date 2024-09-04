@@ -5,6 +5,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(cors());
+connectDB();
 
 app.use(express.json());
 
@@ -15,7 +16,14 @@ app.use("*", (req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`app is running at ${PORT}`);
-  connectDB();
+const server = app.listen(
+  PORT,
+  console.log(`server is running on port ${PORT}`)
+);
+process.on("unhandledRejection", (err) => {
+  console.log(`unhandledRejection Error: ${err.message}`);
+  server.close(() => {
+    console.log("shutting down.........");
+    process.exit(1);
+  });
 });
